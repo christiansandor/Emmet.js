@@ -1,5 +1,5 @@
 {
-  "name": "Emmet",
+  "name": "emmet-js",
   "version": "1.0.0",
   "description": "Creating HTML elements through Emmet-like syntax. (http://emmet.io)",
   "main": "./dist/emmet.min.js",
