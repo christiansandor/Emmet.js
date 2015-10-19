@@ -1,7 +1,7 @@
 # Emmet.js
 Emmet syntax for creating DOM elements in vanilla &amp; JQuery.
 
-The module is strictly ESLinted, and covered by 25 test cases, and currently in v1.0.0.
+The module is strictly ESLinted, and covered by 25 test cases, and currently in v1.0.1.
 
 ## Fetch
 To have *Emmet* in your library, you should either:
