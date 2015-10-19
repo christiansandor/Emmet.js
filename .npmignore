@@ -1,0 +1,5 @@
+.gitignore
+.npmignore
+.idea
+bower.json
+bower_components

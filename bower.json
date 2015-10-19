@@ -1,0 +1,30 @@
+{
+  "name": "Emmet",
+  "main": "./dist/emmet.min.js",
+  "homepage": "https://github.com/christiansandor/Emmet.js",
+  "authors": [
+    "Krisztian Sandor <contact@christiansandor.com>"
+  ],
+  "description": "Creating HTML elements through Emmet-like syntax. (http://emmet.io)",
+  "ignore": [
+    ".eslintrc",
+    ".gitignore",
+    ".npmignore",
+    "gulpfile.js",
+    "package.json",
+    "node_modules",
+    "test"
+  ],
+  "moduleType": [],
+  "keywords": [
+    "emmet",
+    "html",
+    "jquery",
+    "dynamic",
+    "element",
+    "short",
+    "template"
+  ],
+  "license": "MIT",
+  "dependencies": {}
+}
