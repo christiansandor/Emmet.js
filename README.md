@@ -7,8 +7,8 @@ The module is strictly ESLinted, and covered by 25 test cases, and currently in 
 To have *Emmet* in your library, you should either:
 
 - Download it from GitHub
-- Use *bower* to install `bower install emmet-js`
-- Use *npm* to install `npm install emmet-js`
+- Use *bower* to install `bower install emmetjs`
+- Use *npm* to install `npm install emmetjs`
 - ~~Use CDN link `<script type="text/javascript" src="/path/to/emmet.js"></script>`~~ *
 
 Then you need to pull Emmet above the scripts you want to use it in like this:

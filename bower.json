@@ -1,5 +1,5 @@
 {
-  "name": "emmet-js",
+  "name": "emmetjs",
   "main": "./dist/emmet.min.js",
   "homepage": "https://github.com/christiansandor/Emmet.js",
   "authors": [
