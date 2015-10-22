@@ -112,8 +112,8 @@
             var el = emmet(text, htmlOnly, args);
             return htmlOnly ? el : window.jQuery(el);
         };
-        window.jQuery.emmet.template = function (text, htmlOnly) {
-            var template = emmet.template(text, htmlOnly);
+        window.jQuery.emmet.template = function (text, htmlOnly, args) {
+            var template = emmet.template(text, htmlOnly, args);
             return function () {
                 var el = template.apply(null, arguments);
                 return htmlOnly ? el : window.jQuery(el);
