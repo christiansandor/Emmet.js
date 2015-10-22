@@ -112,28 +112,23 @@ gulp.start("jsmin", function () {
     fs.writeFile("package.json", JSON.stringify(npmPackage, null, "  ") + "\n", "utf8", function (error) {
         if (error) return done(error);
 
-        cmd = "git add package.json; git commit -m 'package.json for v" + version + "'; git push origin";
+        done();
+        done = tasks[2]();
+
+        cmd = "git add .; git commit -m 'changes for v" + version + "'; git push; git tag -f v" + version + "; git push origin v" + version + "";
         exec(cmd, function (error) {
             if (error) return done(error);
 
             done();
-            done = tasks[2]();
+            done = tasks[3]();
 
-            cmd = "git add package.json; git tag -f v" + version + "; git push origin v" + version + "";
+            cmd = "npm publish";
             exec(cmd, function (error) {
                 if (error) return done(error);
-
                 done();
-                done = tasks[3]();
 
-                cmd = "npm publish";
-                exec(cmd, function (error) {
-                    if (error) return done(error);
-                    done();
-
-                    console.log("Version published successfully.")
-                })
-            });
+                console.log("Version published successfully.")
+            })
         });
     });
 });
