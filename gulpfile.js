@@ -35,7 +35,9 @@ gulp.task("jsmin", function () {
         .pipe(gulp.dest(paths.production.folder));
 });
 
-gulp.task("default", ["jsmin", "eslint"]);
+gulp.task("default", ["jsmin", "eslint"], function (done) {
+    done();
+});
 
 gulp.task("watch", ["default"], function () {
     gulp.watch(paths.source, ["jsmin", "eslint"]);
