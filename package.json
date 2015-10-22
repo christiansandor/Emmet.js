@@ -1,6 +1,6 @@
 {
   "name": "emmetjs",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "Creating HTML elements through Emmet-like syntax. (http://emmet.io)",
   "main": "./dist/emmet.min.js",
   "directories": {
