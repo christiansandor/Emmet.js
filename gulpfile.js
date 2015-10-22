@@ -57,11 +57,11 @@ gulp.task("test-filename", function () {
 
 gulp.task("test-dev", function () {
     process.env.FILENAME = paths.source;
-    gulp.run("test-filename");
+    gulp.start("test-filename");
 });
 
 
 gulp.task("test", function () {
     process.env.FILENAME = paths.production.folder + paths.production.file;
-    gulp.run("test-filename");
+    gulp.start("test-filename");
 });

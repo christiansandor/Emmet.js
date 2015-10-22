@@ -276,6 +276,15 @@ describe("Emmet", function () {
             expect(element2.className).to.equal("custom3 custom4");
         });
 
+        it("should handle template primary and secondary arguments", function () {
+            var template = emmet.template("tag.{0}.{1}", false, ["custom1"]);
+            var element1 = template("custom2");
+            var element2 = template("custom3");
+
+            expect(element1.className).to.equal("custom1 custom2");
+            expect(element2.className).to.equal("custom1 custom3");
+        });
+
         it("should handle template with HTML returns with arguments", function () {
             var templateString = "tag.{0}.{1}";
             var template1 = emmet.template(templateString, false);

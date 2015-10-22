@@ -98,10 +98,10 @@
         }, text);
     };
 
-    emmet.template = function (text, htmlOnly) {
+    emmet.template = function (text, htmlOnly, args) {
         if (text === void 0) throw new Error("There should be a template string to parse.");
         return function () {
-            return emmet(text, htmlOnly, [].slice.call(arguments));
+            return emmet(text, htmlOnly, [].concat.apply(args || [], arguments));
         };
     };
 
