@@ -72,7 +72,7 @@ require("./gulpfile");
 tasks = [
     task("Building minified JS"),
     task("Writing version to package.json"),
-    task("Pushing tag to git"),
+    task("Pushing changes and tag to git"),
     task("Publishing to npm"),
 ];
 
