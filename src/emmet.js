@@ -1,8 +1,8 @@
 (function () {
-    var indexesRe = /(.+?)(>|\+|\^|$)/g;
+    var indexesRe = /(.+?)(>|\+|\^|$|\*)(\d+)?/g;
     var escapeRe = /("|')([^\1]*?)\1/g;
     var innerTextRe = /\{([^}]*?)}/g;
-    var excludes = "([^\\.#\\(\\{]+)";
+    var excludes = "([^\\.#\\(\\{\\*]+)";
     var attrsRe = /\(([^\)]*)\)/g;
     var tagRe = new RegExp("^" + excludes);
     var idRe = new RegExp("#" + excludes, "g");
@@ -80,10 +80,14 @@
                 return "{}";
             })
             .replace(/\s+/g, "")
-            .replace(indexesRe, function (full, elementText, splitter) {
+            .replace(indexesRe, function (full, elementText, splitter,multi) {
                 current.appendChild(lastElement = element(elementText));
                 if (splitter === ">") current = lastElement;
                 else if (splitter === "^") current = current.parentNode;
+                else if (splitter === '*')
+                    while(--multi)
+                        current.appendChild(lastElement.cloneNode(true))
+
             });
 
         returnValue = tree.children.length > 1 ? tree.children : tree.children[0];
