@@ -17,7 +17,7 @@
         });
     }
 
-    function element(textParam) {
+    function element(textParam, parent) {
         var text = textParam || "";
 
         var tag = text.match(tagRe);
@@ -25,8 +25,18 @@
         var classes = text.match(classesRe);
         var attrs = text.match(attrsRe);
         var innerText = text.match(innerTextRe);
-
-        var el = document.createElement(tag ? tag[0] : "div");
+        var defElm = {
+            UL:'li',
+            OL:'li',
+            TABLE:'tr',
+            TBODY:'tr',
+            THEAD:'tr',
+            TFOOT:'tr',
+            TR:'td',
+            SELECT:'option',
+            OPTGROUP:'option'
+        };
+        var el = document.createElement(tag ? tag[0] : defElm[ parent && parent.tagName] || "div");
 
         if (id) el.id = id.pop().replace(idRe, "$1");
         if (classes) {
@@ -80,8 +90,8 @@
                 return "{}";
             })
             .replace(/\s+/g, "")
-            .replace(indexesRe, function (full, elementText, splitter,multi) {
-                current.appendChild(lastElement = element(elementText));
+            .replace(indexesRe, function (full, elementText, splitter, multi) {
+                current.appendChild(lastElement = element(elementText,current));
                 if (splitter === ">") current = lastElement;
                 else if (splitter === "^") current = current.parentNode;
                 else if (splitter === '*')
