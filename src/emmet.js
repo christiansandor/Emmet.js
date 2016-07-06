@@ -58,8 +58,8 @@
                 });
             });
         }
-
-        return el;
+        /*warp with fragment*/
+        return multiplication(el,1);
     }
     function emmet(text, htmlOnly, args){
         current = null;
@@ -68,11 +68,13 @@
         return htmlOnly ? fragment.innerHTML : fragment;
     }
     function emmetParser(text, args) {
-        var tree =  document.createDocumentFragment();
+        var root =  document.createDocumentFragment();
         var lastElement = null;
-        var current = tree;
+        var current = root;
+        var lastParents = [root];
         var usedText = text || "";
         var groups = [];
+        var operations = [], op ;
         if (text === void 0) throw new Error("There should be a string to parse.");
 
         if (args) usedText = emmet.templatedString(text, args);
@@ -96,18 +98,58 @@
             })
             .replace(/\s+/g, "")
             .replace(indexesRe, function (full, elText, multi, splitter ) {
-                lastElement =
-                    (elText =='()')? emmetParser(groups.shift()): element(elText,current);
+                lastElement = (elText =='()')?
+                    emmetParser(groups.shift()): element(elText,current);
 
-                multi = multi? multi.slice(1)*1 : 1;
-                while(multi--)
-                    current.appendChild(lastElement = lastElement.cloneNode(true));
+                if(multi)
+                    lastElement = multiplication(lastElement,  multi.slice(1));
 
-                if (splitter === ">") current = lastElement;
-                else if (splitter === "^") current = current.parentNode;
+                operations.unshift({
+                    parents:current,
+                    childes:lastElement,
+                    sibling: root == current
+                });
+
+                if (splitter === ">") {
+                    lastParents.push( current ) ;
+                    current = lastElement;
+                }else if (splitter === "^") current = lastParents.pop();
             });
 
-        return tree;
+        while ( op = operations.shift() ){
+            appendTo(op.parents, op.childes, op.sibling)
+        }
+
+        return root;
+    }
+
+    function appendTo(parents,children, sibling){
+
+        if(sibling || parents.childNodes.length == 0) {
+            parents.insertBefore(children, parents.firstChild );
+        }else{
+            parents = parents.childNodes;
+            var len = parents.length;
+            /*add the clones elements in the end*/
+            if(len > 1)  while(--len){
+                var before = parents[len].firstChild;
+                parents[len].insertBefore( children.cloneNode(true), before);
+            }
+            /*add the original elements in the start*/
+            var before = parents[0].firstChild;
+            parents[0].insertBefore( children, before );
+        }
+
+    }
+
+    function multiplication(elements, number){
+        var ret = document.createDocumentFragment();
+        if(number > 1)
+            while(--number)
+                ret.appendChild(elements.cloneNode(true));
+        /*add the original elements in the end*/
+        ret.appendChild(elements);
+        return ret;
     }
 
     emmet.templatedString = function (text, args) {
