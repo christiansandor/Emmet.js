@@ -1,5 +1,5 @@
 (function () {
-    var indexesRe = /(.+?)(\*\d+)?(>|\+|\^|$)/g;
+    var indexesRe = /(.*?)(\*\d+)?(>|\+|\^|$)/g;
     var escapeRe = /("|')([^\1]*?)\1/g;
     var groupingRe = /\(((?:[^)(]+|\((?:[^)(]+|\([^)(]*\))*\))*)\)/g;
     var innerTextRe = /\{([^}]*?)}/g;
@@ -98,27 +98,29 @@
             })
             .replace(/\s+/g, "")
             .replace(indexesRe, function (full, elText, multi, splitter ) {
-                lastElement = (elText =='()')?
-                    emmetParser(groups.shift()): element(elText,current);
+                if( elText ){
+                    lastElement = (elText =='()')?
+                        emmetParser(groups.shift()): element(elText,current);
 
-                if(multi)
-                    lastElement = multiplication(lastElement,  multi.slice(1));
+                    if(multi)
+                        lastElement = multiplication(lastElement,  multi.slice(1));
 
-                operations.unshift({
-                    parents:current,
-                    childes:lastElement,
-                    sibling: root == current
-                });
+                    operations.unshift({
+                        parents: current,
+                        childes: lastElement,
+                        sibling: root == current
+                    });
+                }
 
                 if (splitter === ">") {
                     lastParents.push( current ) ;
                     current = lastElement;
-                }else if (splitter === "^") current = lastParents.pop();
+                }else if (splitter === "^")
+                    current = lastParents.pop() || root;
             });
 
-        while ( op = operations.shift() ){
-            appendTo(op.parents, op.childes, op.sibling)
-        }
+        while ( op = operations.shift() )
+            appendTo(op.parents, op.childes, op.sibling);
 
         return root;
     }
