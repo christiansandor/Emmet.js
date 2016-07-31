@@ -142,3 +142,5 @@ For JQuery you should call Emmet by `$.emmet(a, b, c)` and `$.emmet.template(a, 
 `$.emmet.template(a, b, c)` returns a callable which then returns a JQuery object if you not set the *returnOnlyHTML* to *true*.
 
 *If you call `Emmet(a, b, c)` or `Emmet.template(a, b, c)` you will get the usual Emmet returns, not the JQuery ones.*
+
+
