@@ -35,7 +35,7 @@
 				return className.slice(1);
 			}).join(' ');
 		}
- 
+
 		if (innerText) {
 			el.innerHTML += innerText.map(function () {
 				return unescape(innerTexts.shift());
@@ -65,23 +65,22 @@
 		var usedText = text || '';
 		var returnValue;
 
-		if (text === void 0) throw new Error('There should be a string to parse.');
+		if (text === undefined) throw new Error('There should be a string to parse.');
 
 		escaped = [];
 		innerTexts = [];
 
-		if (args) usedText = emmet.templatedString(text, args);
+		if (args) {
+			usedText = emmet.templatedString(text, args);
+		}
 
-		usedText
-			.replace(escapeRe, function (full, quotes, escape) {
-				escaped.push(escape);
-				return '""';
-			})
-			.replace(innerTextRe, function (full, innerText) {
-				innerTexts.push(innerText);
-				return '{}';
-			})
-			.replace(/\s+/g, '')
+		usedText.replace(escapeRe, function (full, quotes, escape) {
+			escaped.push(escape);
+			return '""';
+		}).replace(innerTextRe, function (full, innerText) {
+			innerTexts.push(innerText);
+			return '{}';
+		}).replace(/\s+/g, '')
 			.replace(indexesRe, function (full, elementText, splitter) {
 				current.appendChild(lastElement = element(elementText));
 				if (splitter === '>') current = lastElement;
@@ -101,7 +100,7 @@
 	};
 
 	emmet.template = function (text, htmlOnly, args) {
-		if (text === void 0) throw new Error('There should be a template string to parse.');
+		if (text === undefined) throw new Error('There should be a template string to parse.');
 		return function () {
 			return emmet(text, htmlOnly, [].concat.apply(args || [], arguments));
 		};
