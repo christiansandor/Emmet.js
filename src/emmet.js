@@ -66,7 +66,7 @@
 		let lastElement = tree;
 		let usedText = text || '';
 
-		if (!text) {
+		if (text === undefined) {
 			throw new Error('There should be a string to parse.');
 		}
 
@@ -117,7 +117,7 @@
 	};
 
 	emmet.template = function (text, htmlOnly, args) {
-		if (!text) {
+		if (text === undefined) {
 			throw new Error('There should be a template string to parse.');
 		}
 

@@ -1,4 +1,4 @@
-/* global describe require window process it*/
+/* global describe window process it */
 
 const jsdom = require('mocha-jsdom');
 const expect = require('chai').expect;
@@ -226,15 +226,19 @@ describe('Emmet', function() {
 		});
 
 		it('should climb several parents', function() {
-			// const sibling1 = emmet('custom > custom2 > custom3');
 			const sibling1 = emmet('custom > custom2 > custom3 ^^ custom4');
-			// const sibling2 = emmet('custom > .custom2 ^ .custom3');
-			// const sibling3 = emmet('custom > #custom2 ^ #custom3');
-			// const sibling4 = emmet('custom > custom2(custom=1) ^ custom3');
-			// const sibling5 = emmet('custom > custom2{custom} ^ custom3');
-			// const sibling6 = emmet('custom > custom2 + custom3 ^ custom4 + custom5');
+			const sibling2 = emmet('custom > custom2 > custom3 > custom4 ^^^ custom5');
+			const sibling3 = emmet('custom > custom2 > custom3 > custom4 ^^^ custom5 + custom6 > custom7');
 
 			expect(sibling1).to.have.length(2);
+			expect(sibling2).to.have.length(2);
+			expect(sibling3).to.have.length(3);
+			expect(sibling3[2].children).to.have.length(1);
+		});
+
+		it('should throw error when trying to climb too many parents', function() {
+			const fn = emmet.bind(emmet, 'custom > custom2 > custom3 ^^^^^ custom4');
+			expect(fn).to.throw(Error);
 		});
 
 		it('should escape quotes', function() {
