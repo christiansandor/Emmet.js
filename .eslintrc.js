@@ -20,7 +20,9 @@ module.exports = {
 			'args': 'after-used'
 		}],
 
-		'no-use-before-define': ['error', {'functions': false}],
+		'no-use-before-define': [2, {
+			'functions': false
+		}],
 		
 		// Possible errors
 		// 'comma-dangle': [2, 'always-multiline'],
@@ -89,14 +91,6 @@ module.exports = {
 		'yoda': 2,
 		
 		// Code style
-		'max-len': [2, 120, 4,
-		{
-			'ignoreComments': true,
-			'ignoreUrls': true,
-			'ignorePattern': '^\\s*var\\s.+=\\s*require\\s*\\('
-		}
-		],
-
 		// 'indent': ['warn', 'tab'],
 		'brace-style': [
 			2,
@@ -150,14 +144,8 @@ module.exports = {
 			'after': true
 		}],
 
-		'keyword-spacing': ['warn'],
+		'keyword-spacing': 2,
 		'space-before-blocks': 2,
-		'space-before-function-paren': [2, {
-			'anonymous': 'always',
-			'named': 'never'
-		}],
-
-		
 		'space-infix-ops': 2,
 		'spaced-comment': [2, 'always',  {
 			'exceptions': ['-', '+'],
