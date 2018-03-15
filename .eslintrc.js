@@ -165,7 +165,7 @@ module.exports = {
 		'spaced-comment': [2, 'always',  {
 			'exceptions': ['-', '+'],
 			'markers': ['=', '!']           // space here to support sprockets directives
-		}]
+		}],
 
 		// 'brace-style': 'warn',
 		// 'comma-dangle': ['warn', 'always-multiline'],
@@ -181,5 +181,5 @@ module.exports = {
 		'prefer-template': 'warn',
 		'quotes': ['warn', 'single'],
 		// 'semi': ['warn', 'always'],
-	}
-}
+	},
+};

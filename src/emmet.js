@@ -1,32 +1,32 @@
 (function () {
-	var indexesRe = /(.+?)(>|\+|\^|$)/g;
-	var escapeRe = /("|')([^\1]*?)\1/g;
-	var innerTextRe = /\{([^}]*?)}/g;
-	var excludes = '([^\\.#\\(\\{]+)';
-	var attrsRe = /\(([^\)]*)\)/g;
-	var tagRe = new RegExp('^' + excludes);
-	var idRe = new RegExp('#' + excludes, 'g');
-	var classesRe = new RegExp('\\.' + excludes, 'g');
+	const indexesRe = /(.+?)(>|\+|\^|$)/g;
+	const escapeRe = /("|')([^\1]*?)\1/g;
+	const innerTextRe = /\{([^}]*?)}/g;
+	const excludes = '([^\\.#\\(\\{]+)';
+	const attrsRe = /\(([^)]*)\)/g;
+	const tagRe = new RegExp(`^${  excludes}`);
+	const idRe = new RegExp(`#${  excludes}`, 'g');
+	const classesRe = new RegExp(`\\.${  excludes}`, 'g');
 
-	var escaped = [];
-	var innerTexts = [];
+	let escaped = [];
+	let innerTexts = [];
 
 	function unescape(text) {
 		return text.replace(/""/g, function () {
-			return '"' + escaped.shift() + '"';
+			return `"${  escaped.shift()  }"`;
 		});
 	}
 
 	function element(textParam) {
-		var text = textParam || '';
+		const text = textParam || '';
 
-		var tag = text.match(tagRe);
-		var id = text.match(idRe);
-		var classes = text.match(classesRe);
-		var attrs = text.match(attrsRe);
-		var innerText = text.match(innerTextRe);
+		const tag = text.match(tagRe);
+		const id = text.match(idRe);
+		const classes = text.match(classesRe);
+		const attrs = text.match(attrsRe);
+		const innerText = text.match(innerTextRe);
 
-		var el = document.createElement(tag ? tag[0] : 'div');
+		const el = document.createElement(tag ? tag[0] : 'div');
 
 		if (id) el.id = id.pop().replace(idRe, '$1');
 
@@ -44,11 +44,11 @@
 
 		if (attrs) {
 			attrs.map(function (chunkParam) {
-				var chunk = chunkParam.replace(attrsRe, '$1').split(',');
+				const chunk = chunkParam.replace(attrsRe, '$1').split(',');
 				chunk.map(function (attrParam) {
-					var attr = attrParam.split('=');
-					var key = attr.shift();
-					var value = JSON.parse(unescape(attr.join('=')));
+					const attr = attrParam.split('=');
+					const key = attr.shift();
+					const value = JSON.parse(unescape(attr.join('=')));
 
 					el.setAttribute(key, value);
 				});
@@ -59,11 +59,10 @@
 	}
 
 	function emmet(text, htmlOnly, args) {
-		var tree = element();
-		var current = tree;
-		var lastElement = tree;
-		var usedText = text || '';
-		var returnValue;
+		const tree = element();
+		let current = tree;
+		let lastElement = tree;
+		let usedText = text || '';
 
 		if (text === undefined) throw new Error('There should be a string to parse.');
 
@@ -87,13 +86,13 @@
 				else if (splitter === '^') current = current.parentNode;
 			});
 
-		returnValue = tree.children.length > 1 ? tree.children : tree.children[0];
+		const returnValue = tree.children.length > 1 ? tree.children : tree.children[0];
 		return htmlOnly ? tree.innerHTML : returnValue;
 	}
 
 	emmet.templatedString = function (text, args) {
 		return args.reduce(function (str, el, i) {
-			return str.replace(new RegExp('\\{' + i + '\\}', 'g'), function () {
+			return str.replace(new RegExp(`\\{${  i  }\\}`, 'g'), function () {
 				return el;
 			});
 		}, text);
@@ -110,13 +109,13 @@
 
 	if (window.jQuery) {
 		window.jQuery.emmet = function (text, htmlOnly, args) {
-			var el = emmet(text, htmlOnly, args);
+			const el = emmet(text, htmlOnly, args);
 			return htmlOnly ? el : window.jQuery(el);
 		};
 		window.jQuery.emmet.template = function (text, htmlOnly, args) {
-			var template = emmet.template(text, htmlOnly, args);
+			const template = emmet.template(text, htmlOnly, args);
 			return function () {
-				var el = template.apply(null, arguments);
+				const el = template.apply(null, arguments);
 				return htmlOnly ? el : window.jQuery(el);
 			};
 		};
