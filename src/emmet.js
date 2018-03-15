@@ -1,19 +1,19 @@
 (function () {
-	const indexesRe = /(.+?)(>|\+|\^|$)/g;
+	const indexesRe = /(.+?)(>|\+|\^+|$)/g;
 	const escapeRe = /("|')([^\1]*?)\1/g;
 	const innerTextRe = /\{([^}]*?)}/g;
 	const excludes = '([^\\.#\\(\\{]+)';
 	const attrsRe = /\(([^)]*)\)/g;
-	const tagRe = new RegExp(`^${  excludes}`);
-	const idRe = new RegExp(`#${  excludes}`, 'g');
-	const classesRe = new RegExp(`\\.${  excludes}`, 'g');
+	const tagRe = new RegExp(`^${excludes}`);
+	const idRe = new RegExp(`#${excludes}`, 'g');
+	const classesRe = new RegExp(`\\.${excludes}`, 'g');
 
 	let escaped = [];
 	let innerTexts = [];
 
 	function unescape(text) {
 		return text.replace(/""/g, function () {
-			return `"${  escaped.shift()  }"`;
+			return `"${escaped.shift()}"`;
 		});
 	}
 
@@ -28,7 +28,9 @@
 
 		const el = document.createElement(tag ? tag[0] : 'div');
 
-		if (id) el.id = id.pop().replace(idRe, '$1');
+		if (id) {
+			el.id = id.pop().replace(idRe, '$1');
+		}
 
 		if (classes) {
 			el.className = classes.map(function (className) {
@@ -64,7 +66,9 @@
 		let lastElement = tree;
 		let usedText = text || '';
 
-		if (text === undefined) throw new Error('There should be a string to parse.');
+		if (!text) {
+			throw new Error('There should be a string to parse.');
+		}
 
 		escaped = [];
 		innerTexts = [];
@@ -82,8 +86,22 @@
 		}).replace(/\s+/g, '')
 			.replace(indexesRe, function (full, elementText, splitter) {
 				current.appendChild(lastElement = element(elementText));
-				if (splitter === '>') current = lastElement;
-				else if (splitter === '^') current = current.parentNode;
+
+				if (splitter === '>') {
+					current = lastElement;
+				} else {
+					let spl = splitter;
+
+					while (/\^+/.test(spl)) {
+						spl = spl.slice(1);
+
+						if (current.parentNode) {
+							current = current.parentNode;
+						} else {
+							throw new Error('Attempted to climb to a non-existent parent (too many \'^\' operators used)');
+						}
+					}
+				}
 			});
 
 		const returnValue = tree.children.length > 1 ? tree.children : tree.children[0];
@@ -92,14 +110,17 @@
 
 	emmet.templatedString = function (text, args) {
 		return args.reduce(function (str, el, i) {
-			return str.replace(new RegExp(`\\{${  i  }\\}`, 'g'), function () {
+			return str.replace(new RegExp(`\\{${i}\\}`, 'g'), function () {
 				return el;
 			});
 		}, text);
 	};
 
 	emmet.template = function (text, htmlOnly, args) {
-		if (text === undefined) throw new Error('There should be a template string to parse.');
+		if (!text) {
+			throw new Error('There should be a template string to parse.');
+		}
+
 		return function () {
 			return emmet(text, htmlOnly, [].concat.apply(args || [], arguments));
 		};

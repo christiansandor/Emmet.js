@@ -48,9 +48,6 @@ module.exports = {
 		// Best practices
 		'consistent-return': 2,
 		
-		// Disabled temporarily.
-		'curly': [0, 'multi'],
-		
 		'default-case': 2,
 		'dot-notation': [2, {
 			'allowKeywords': true
@@ -169,17 +166,18 @@ module.exports = {
 
 		// 'brace-style': 'warn',
 		// 'comma-dangle': ['warn', 'always-multiline'],
-		// 'curly': 'error',
 		// 'indent': ['warn', 'tab', {'SwitchCase': 1}],
-		'linebreak-style': 'off',
 		// 'no-console': ['error', { allow: ['warn', 'error'] }],
 		// 'no-empty': ['error', { 'allowEmptyCatch': true }],
 		// 'no-multiple-empty-lines': ['warn', {'max': 2}],
+		// 'semi': ['warn', 'always'],
+		
+		'linebreak-style': 'off',
+		'curly': 'error',
 		'no-var': 'warn',
 		'one-var': ['warn', 'never'],
 		'prefer-const': 'warn',
 		'prefer-template': 'warn',
 		'quotes': ['warn', 'single'],
-		// 'semi': ['warn', 'always'],
 	},
 };
