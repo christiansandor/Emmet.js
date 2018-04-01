@@ -1,43 +1,43 @@
 {
-  "name": "emmetjs",
-  "version": "1.1.3",
-  "description": "Creating HTML elements through Emmet-like syntax. (http://emmet.io)",
-  "main": "./dist/emmet.min.js",
-  "directories": {
-    "test": "test"
-  },
-  "scripts": {
-    "test-dev": "gulp test-dev",
-    "test": "gulp test"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/christiansandor/Emmet.js.git"
-  },
-  "keywords": [
-    "emmet",
-    "html",
-    "jquery",
-    "dynamic",
-    "element",
-    "short",
-    "template"
-  ],
-  "author": "Krisztian Sandor <contact@christiansandor.com>",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/christiansandor/Emmet.js/issues"
-  },
-  "homepage": "https://github.com/christiansandor/Emmet.js#readme",
-  "devDependencies": {
-    "chai": "^3.3.0",
-    "google-closure-compiler-js": "^20180204.0.0",
-    "gulp": "^3.9.0",
-    "gulp-closure-compiler": "^0.3.1",
-    "gulp-eslint": "^4.0.0",
-    "gulp-mocha": "^2.1.3",
-    "jsdom": "^7.0.1",
-    "mocha": "^2.3.3",
-    "mocha-jsdom": "^1.0.0"
-  }
+    "name": "emmetjs",
+    "version": "1.1.3",
+    "description": "Creating HTML elements through Emmet-like syntax. (http://emmet.io)",
+    "main": "./dist/emmet.min.js",
+    "directories": {
+        "test": "test"
+    },
+    "scripts": {
+        "test-dev": "gulp test-dev",
+        "test": "gulp test"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/christiansandor/Emmet.js.git"
+    },
+    "keywords": [
+        "emmet",
+        "html",
+        "jquery",
+        "dynamic",
+        "element",
+        "short",
+        "template"
+    ],
+    "author": "Krisztian Sandor <contact@christiansandor.com>",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/christiansandor/Emmet.js/issues"
+    },
+    "homepage": "https://github.com/christiansandor/Emmet.js#readme",
+    "devDependencies": {
+        "chai": "^3.3.0",
+        "google-closure-compiler-js": "^20180204.0.0",
+        "gulp": "^3.9.0",
+        "gulp-closure-compiler": "^0.3.1",
+        "gulp-eslint": "^4.0.0",
+        "gulp-mocha": "^2.1.3",
+        "jsdom": "^7.0.1",
+        "mocha": "^2.3.3",
+        "mocha-jsdom": "^1.0.0"
+    }
 }

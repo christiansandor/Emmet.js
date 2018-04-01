@@ -30,7 +30,7 @@ gulp.task('eslint', function () {
 gulp.task('jsmin', function () {
     return gulp.src(paths.source)
         .pipe(compiler({
-            jsOutputFile: paths.production.file
+            jsOutputFile: paths.production.file,
         }))
         .on('error', swallowError)
         .pipe(gulp.dest(paths.production.folder));
@@ -50,7 +50,7 @@ gulp.task('test-filename', function () {
         .pipe(mocha({
             timeout: 2000,
             useColors: true,
-            useInlineDiffs: true
+            useInlineDiffs: true,
         }))
         .on('error', swallowError)
         .once('end', function () {
