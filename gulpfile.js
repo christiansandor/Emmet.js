@@ -9,9 +9,9 @@ const paths = {
     source: './src/emmet.js',
     production: {
         folder: './dist/',
-        file: 'emmet.min.js'
+        file: 'emmet.min.js',
     },
-    test: './test/emmet.js'
+    test: './test/emmet.js',
 };
 
 function swallowError(error) {
